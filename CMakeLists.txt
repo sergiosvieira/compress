@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.2)
 project(zip-example)
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
     "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Cland")
@@ -9,5 +10,5 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${warnings}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${warnings}")
 find_package(LibArchive REQUIRED)
 include_directories(${LibArchive_INCLUDE_DIRS})
-add_executable(create-zip main.cpp)
+add_executable(create-zip main.cpp dirent.h)
 target_link_libraries(create-zip ${LibArchive_LIBRARIES})
