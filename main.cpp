@@ -11,7 +11,7 @@
 #else
 #include <unistd.h>
 #define SLASH "/"
-#include <dirent>
+#include <dirent.h>
 #endif
 #include <cstring>
 #include <vector>
@@ -88,9 +88,7 @@ write_archive(const char *outname, const std::vector<std::string>& a_vector)
 		assert(entry != nullptr);
         archive_entry_copy_stat(entry, &st);
         archive_entry_set_pathname(entry, file.c_str());
-		assert(archive_write_header(a, entry) == ARCHIVE_OK);
-		//assert(archive_write_add_filter_compress(a) == ARCHIVE_OK);
-		//assert(archive_write_add_filter_uuencode(a) == ARCHIVE_OK);
+        archive_write_header(a, entry);
         fd = open(file.c_str(), O_RDONLY);
 		if (fd != -1)
 		{
@@ -161,6 +159,7 @@ void listDir(std::vector<std::string>& a_vector, DIR* a_parent, const char* a_di
 
 int main(int argc, const char **argv)
 {
+    std::locale::global(std::locale(""));
     std::vector<std::string> files;
     if (argv[1] != nullptr)
     {
@@ -169,7 +168,7 @@ int main(int argc, const char **argv)
     for (const std::string& file: files)
     {
         std::cout << file.c_str() << "\n";
-    }
+    }    
     write_archive("saida.zip", files);
     return 0;
 }
