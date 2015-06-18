@@ -1,0 +1,7 @@
+_get_headers()
+if(${platform} MATCHES "windows")
+    _add_subdirectories(${CMAKE_CURRENT_LIST_DIR})
+else()
+    add_subdirectory(zip)
+    add_subdirectory(utils)
+endif()
